@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TPF #1633 — Connected Corridors Advancement Initiative: Participation Map</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 24px; }
+    #map { width: 100%; height: 600px; }
+    .card { background: #f9fafb; border: 1px solid #e5e7eb; padding: 16px 18px; border-radius: 10px; max-width: 1100px; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 14px; }
+    .swatch { width: 12px; height: 12px; display: inline-block; border: 1px solid #999; margin-right: 6px; border-radius: 2px; }
+    .legend { margin-top: 10px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .muted { color: #4b5563; font-size: 0.95rem; }
+    h1 { margin: 0 0 8px 0; font-size: 1.6rem; }
+    h2 { margin: 20px 0 8px 0; font-size: 1.2rem; }
+    ul { margin: 6px 0 0 18px; }
+    a { color: #0b57d0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: #eef2ff; padding: 1px 6px; border-radius: 4px; }
+    .small { font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Connected Corridors Advancement Initiative — TPF #1633</h1>
+    <div class="small">
+      <strong>Live solicitation:</strong> <a href="https://pooledfund.org/Details/Solicitation/1633" target="_blank" rel="noopener">pooledfund.org/Details/Solicitation/1633</a>
+    </div>
+    <div class="legend muted" aria-hidden="true">
+      <span><span class="swatch" style="background:#2e7d32"></span> Joined</span>
+      <span><span class="swatch" style="background:#e0e0e0"></span> Need to join</span>
+    </div>
+
+    <div id="map" role="img" aria-label="US map showing pooled fund participation with hover details"></div>
+
+    <div class="cols">
+      <div>
+        <h2>Joined Partners</h2>
+        <div class="muted">Auto‑generated from the map data (hover to see commitments).</div>
+        <ul id="joined-list"></ul>
+      </div>
+      <div>
+        <h2>Remaining I‑35 &amp; I‑80 States</h2>
+        <div class="muted">Non‑joined states along the target corridors.</div>
+        <ul id="remaining-corridor-list"></ul>
+      </div>
+      <div>
+        <h2>Other States That Can Join</h2>
+        <div class="muted">Non‑joined states outside I‑35/I‑80.</div>
+        <ul id="remaining-other-list"></ul>
+      </div>
+    </div>
+
+    <h2>Scope of Work (from TPF #1633)</h2>
+    <p class="muted small">Summary; see the solicitation for the full text.</p>
+    <ul>
+      <li>Gap analysis of each state’s corridor data feeds; implement solutions to meet a minimum multi‑state service standard.</li><li>Standardize and normalize data formats (XML/JSON) across participating states; align with next‑gen Traffic Management Data Dictionary (TDMD).</li><li>Draft consistent, shared data policies and governance that work across agencies and coalitions.</li><li>Engage mapping providers, vehicle OEMs, and ELD/fleet platforms to align schemas for TIM and traveler information messages.</li><li>Pilot and evaluate open data exchanges (e.g., truck parking availability) and expand beyond initial SMART grant pilots.</li><li>Deploy selected, scalable solutions on I‑80 and I‑35; evaluate device interoperability and adoption approaches.</li><li>Provide training, validation tools, and tech‑transfer artifacts to speed implementation and reduce costs.</li><li>Develop a formal charter using MOUs/LOUs for long‑term corridor governance and coordinated grant activities.</li>
+    </ul>
+    <p class="small"><a href="https://pooledfund.org/Details/Solicitation/1633" target="_blank" rel="noopener">Read the full Scope of Work on the TPF page</a></p>
+
+    <p class="muted small" style="margin-top:10px;">Source: Transportation Pooled Fund, Solicitation #1633.</p>
+  </div>
+
+  <script>
+    const rows = [
+      ['US-AL', 0, 'Alabama: Yet to join — No commitment yet'],
+        ['US-AK', 0, 'Alaska: Yet to join — No commitment yet'],
+        ['US-AZ', 0, 'Arizona: Yet to join — No commitment yet'],
+        ['US-AR', 0, 'Arkansas: Yet to join — No commitment yet'],
+        ['US-CA', 0, 'California: Yet to join — No commitment yet'],
+        ['US-CO', 0, 'Colorado: Yet to join — No commitment yet'],
+        ['US-CT', 0, 'Connecticut: Yet to join — No commitment yet'],
+        ['US-DE', 0, 'Delaware: Yet to join — No commitment yet'],
+        ['US-FL', 0, 'Florida: Yet to join — No commitment yet'],
+        ['US-GA', 0, 'Georgia: Yet to join — No commitment yet'],
+        ['US-HI', 0, 'Hawaii: Yet to join — No commitment yet'],
+        ['US-ID', 0, 'Idaho: Yet to join — No commitment yet'],
+        ['US-IL', 0, 'Illinois: Yet to join — No commitment yet'],
+        ['US-IN', 0, 'Indiana: Yet to join — No commitment yet'],
+        ['US-IA', 1, 'Iowa: Joined — $50,000/year (2026–2030) — total $250,000'],
+        ['US-KS', 0, 'Kansas: Yet to join — No commitment yet'],
+        ['US-KY', 0, 'Kentucky: Yet to join — No commitment yet'],
+        ['US-LA', 0, 'Louisiana: Yet to join — No commitment yet'],
+        ['US-ME', 0, 'Maine: Yet to join — No commitment yet'],
+        ['US-MD', 0, 'Maryland: Yet to join — No commitment yet'],
+        ['US-MA', 0, 'Massachusetts: Yet to join — No commitment yet'],
+        ['US-MI', 0, 'Michigan: Yet to join — No commitment yet'],
+        ['US-MN', 0, 'Minnesota: Yet to join — No commitment yet'],
+        ['US-MS', 0, 'Mississippi: Yet to join — No commitment yet'],
+        ['US-MO', 0, 'Missouri: Yet to join — No commitment yet'],
+        ['US-MT', 0, 'Montana: Yet to join — No commitment yet'],
+        ['US-NE', 0, 'Nebraska: Yet to join — No commitment yet'],
+        ['US-NV', 1, 'Nevada: Joined — $50,000/year (2026–2030) — total $250,000'],
+        ['US-NH', 0, 'New Hampshire: Yet to join — No commitment yet'],
+        ['US-NJ', 0, 'New Jersey: Yet to join — No commitment yet'],
+        ['US-NM', 0, 'New Mexico: Yet to join — No commitment yet'],
+        ['US-NY', 0, 'New York: Yet to join — No commitment yet'],
+        ['US-NC', 0, 'North Carolina: Yet to join — No commitment yet'],
+        ['US-ND', 0, 'North Dakota: Yet to join — No commitment yet'],
+        ['US-OH', 0, 'Ohio: Yet to join — No commitment yet'],
+        ['US-OK', 1, 'Oklahoma: Joined — $50,000/year (2026–2030) — total $250,000'],
+        ['US-OR', 0, 'Oregon: Yet to join — No commitment yet'],
+        ['US-PA', 1, 'Pennsylvania: Joined — $50,000/year (2026–2030) — total $250,000'],
+        ['US-RI', 0, 'Rhode Island: Yet to join — No commitment yet'],
+        ['US-SC', 0, 'South Carolina: Yet to join — No commitment yet'],
+        ['US-SD', 0, 'South Dakota: Yet to join — No commitment yet'],
+        ['US-TN', 0, 'Tennessee: Yet to join — No commitment yet'],
+        ['US-TX', 1, 'Texas: Joined — $50,000/year (2026–2030) — total $250,000'],
+        ['US-UT', 0, 'Utah: Yet to join — No commitment yet'],
+        ['US-VT', 0, 'Vermont: Yet to join — No commitment yet'],
+        ['US-VA', 0, 'Virginia: Yet to join — No commitment yet'],
+        ['US-WA', 0, 'Washington: Yet to join — No commitment yet'],
+        ['US-WV', 0, 'West Virginia: Yet to join — No commitment yet'],
+        ['US-WI', 0, 'Wisconsin: Yet to join — No commitment yet'],
+        ['US-WY', 0, 'Wyoming: Yet to join — No commitment yet']
+    ];
+
+    const codeToName = {
+      'US-AL': 'Alabama', 'US-AK': 'Alaska', 'US-AZ': 'Arizona', 'US-AR': 'Arkansas', 'US-CA': 'California', 'US-CO': 'Colorado', 'US-CT': 'Connecticut', 'US-DE': 'Delaware', 'US-FL': 'Florida', 'US-GA': 'Georgia', 'US-HI': 'Hawaii', 'US-ID': 'Idaho', 'US-IL': 'Illinois', 'US-IN': 'Indiana', 'US-IA': 'Iowa', 'US-KS': 'Kansas', 'US-KY': 'Kentucky', 'US-LA': 'Louisiana', 'US-ME': 'Maine', 'US-MD': 'Maryland', 'US-MA': 'Massachusetts', 'US-MI': 'Michigan', 'US-MN': 'Minnesota', 'US-MS': 'Mississippi', 'US-MO': 'Missouri', 'US-MT': 'Montana', 'US-NE': 'Nebraska', 'US-NV': 'Nevada', 'US-NH': 'New Hampshire', 'US-NJ': 'New Jersey', 'US-NM': 'New Mexico', 'US-NY': 'New York', 'US-NC': 'North Carolina', 'US-ND': 'North Dakota', 'US-OH': 'Ohio', 'US-OK': 'Oklahoma', 'US-OR': 'Oregon', 'US-PA': 'Pennsylvania', 'US-RI': 'Rhode Island', 'US-SC': 'South Carolina', 'US-SD': 'South Dakota', 'US-TN': 'Tennessee', 'US-TX': 'Texas', 'US-UT': 'Utah', 'US-VT': 'Vermont', 'US-VA': 'Virginia', 'US-WA': 'Washington', 'US-WV': 'West Virginia', 'US-WI': 'Wisconsin', 'US-WY': 'Wyoming'
+    };
+
+    const i35 = ['IA', 'KS', 'MN', 'MO', 'OK', 'TX'];
+    const i80 = ['CA', 'IA', 'IL', 'IN', 'NE', 'NJ', 'NV', 'OH', 'PA', 'UT', 'WY'];
+    const corridor = Array.from(new Set([...i35, ...i80]));
+
+    google.charts.load('current', {'packages':['geochart']});
+    google.charts.setOnLoadCallback(draw);
+
+    function draw() {
+      const data = new google.visualization.DataTable();
+      data.addColumn('string', 'State');
+      data.addColumn('number', 'Joined');
+      data.addColumn({type: 'string', role: 'tooltip'});
+      data.addRows(rows);
+
+      const options = {
+        region: 'US',
+        resolution: 'provinces',
+        displayMode: 'regions',
+        backgroundColor: '#ffffff',
+        datalessRegionColor: '#f2f2f2',
+        colorAxis: { values: [0, 1], colors: ['#e0e0e0', '#2e7d32'] },
+        legend: 'none',
+        tooltip: { isHtml: false }
+      };
+
+      const chart = new google.visualization.GeoChart(document.getElementById('map'));
+      chart.draw(data, options);
+
+      const joined = [];
+      const remainingCorridor = [];
+      const remainingOther = [];
+
+      for (const r of rows) {
+        const code = r[0];
+        const val = r[1];
+        const abbr = code.slice(3);
+        const name = codeToName[code] || code;
+        const onCorridor = corridor.includes(abbr);
+        if (val === 1) joined.push(name);
+        else if (onCorridor) remainingCorridor.push(name);
+        else remainingOther.push(name);
+      }
+
+      const byName = arr => arr.sort().map(n => `<li>${n}</li>`).join('');
+      document.getElementById('joined-list').innerHTML = byName(joined);
+      document.getElementById('remaining-corridor-list').innerHTML = byName(remainingCorridor);
+      document.getElementById('remaining-other-list').innerHTML = byName(remainingOther);
+
+      window.addEventListener('resize', () => chart.draw(data, options));
+    }
+  </script>
+
+  <footer class="muted small" style="margin-top:18px;">
+    To update participants later, edit any state row in the <code>rows</code> array (0 = Yet to join, 1 = Joined).
+  </footer>
+</body>
+</html>
